@@ -8,6 +8,8 @@ from abc import ABC, abstractmethod
 
 from plantman.command import Command, CommandType
 
+class DeviceCommandFailedException(Exception):
+    pass
 
 class Device(ABC):
 
@@ -33,19 +35,37 @@ class Device(ABC):
             match current_cmd:
                 # Switch commands
                 case Command(cmd_type=CommandType.OPEN):
-                    self.switch = True
+                    if self.profile.open():
+                        self.switch = True
+                    else:
+                        print(f"{self.name} failed to perform {current_cmd.cmd_type.name}")
                 case Command(cmd_type=CommandType.CLOSE):
-                    self.switch = False
+                    if self.profile.close():
+                        self.switch = False
+                    else:
+                        print(f"{self.name} failed to perform {current_cmd.cmd_type.name}")
                 case Command(cmd_type=CommandType.TOGGLE):
-                    self.switch = operator.not_(self.switch)
+                    if self.profile.toggle():
+                        self.switch = operator.not_(self.switch)
+                    else:
+                        print(f"{self.name} failed to perform {current_cmd.cmd_type.name}")
                 # Dial Commands
                 case Command(cmd_type=CommandType.ADJUST):
-                    self.dial += int(current_cmd.data)
+                    if self.profile.adjust():
+                        self.dial += int(current_cmd.data)
+                    else:
+                        print(f"{self.name} failed to perform {current_cmd.cmd_type.name}")
                 case Command(cmd_type=CommandType.SET):
-                    self.dial = int(current_cmd.data)
+                    if self.profile.set():
+                        self.dial = int(current_cmd.data)
+                    else:
+                        print(f"{self.name} failed to perform {current_cmd.cmd_type.name}")
                 # Sensor Commands
                 case Command(cmd_type=CommandType.POLL) if hasattr(self, current_cmd.data):
-                    poll_data = getattr(self, current_cmd.data)
+                    if self.profile.poll():
+                        poll_data = getattr(self, current_cmd.data)
+                    else:
+                        print(f"{self.name} failed to perform {current_cmd.cmd_type.name}")
                 case Command(cmd_type=CommandType.POLL):
                     poll_data = f"Invalid sensor on {self.name}"
 

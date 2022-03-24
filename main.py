@@ -1,4 +1,4 @@
-from plantman.devices import Thermostat, WaterFlowController, Thermometer
+from plantman.devices import Thermostat, Valve, Thermometer
 from plantman.command import Command, CommandType, SWITCH_CMDS
 
 
@@ -13,7 +13,7 @@ def main():
     cmds = [CommandType.OPEN, CommandType.CLOSE, CommandType.POLL, ]
     therm_cmds = [CommandType.POLL, CommandType.ADJUST, CommandType.SET, ]
 
-    waterflow1 = WaterFlowController(SWITCH_CMDS, "Main Water")
+    waterflow1 = Valve(SWITCH_CMDS, "Main Water")
     therm1 = Thermometer(fahrenheit=True)
     thermostat1 = Thermostat(therm_cmds)
 

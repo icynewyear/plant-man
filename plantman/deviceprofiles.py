@@ -57,19 +57,43 @@ class SampleValve(DeviceProfile):
 
 class SampleThermostat(DeviceProfile):
     def open(self):
-        logging.info("Valve Open")
-        return True
+        logging.warning("Unimplimented device behaviour")
+        return False
 
     def close(self):
-        logging.info("Valve Closed")
-        return True
+        logging.warning("Unimplimented device behaviour")
+        return False
 
     def toggle(self):
-        logging.info("Valve Toggled")
-        return True
+        logging.warning("Unimplimented device behaviour")
+        return False
 
     def poll(self):
-        logging.info("Valve State Polled")
+        logging.info("Thermostat State Polled")
+        return True
+
+    def adjust(self):
+        logging.info("Thermostat adjusted")
+        return True
+
+    def set(self):
+        logging.info("Thermostat set")
+        return True
+class SampleThermometer(DeviceProfile):
+    def open(self):
+        logging.warning("Unimplimented device behaviour")
+        return False
+
+    def close(self):
+        logging.warning("Unimplimented device behaviour")
+        return False
+
+    def toggle(self):
+        logging.warning("Unimplimented device behaviour")
+        return False
+
+    def poll(self):
+        logging.info("Thermometer State Polled")
         return True
 
     def adjust(self):
