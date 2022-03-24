@@ -13,23 +13,20 @@ if TYPE_CHECKING:
 
 class Device(ABC):
     
-    display_name = "Device"
+    name = "Device"
+    allowedCommands: AllowedCommands
     switch: bool
     dial: int
-    allowedCommands: AllowedCommands
+    
     
     @abstractmethod
     def connect(self) -> None:
-        if hasattr(self, 'name'):
-            self.display_name = self.name
-        print(f"{self.display_name} connected")
+        print(f"{self.name} connected")
         pass
     
     @abstractmethod
     def disconnect(self) -> None:
-        if hasattr(self, 'name'):
-            self.display_name = self.name
-        print(f"{self.display_name} disconnected")
+        print(f"{self.name} disconnected")
         pass
     
     @abstractmethod
@@ -43,31 +40,24 @@ class Device(ABC):
                     self.switch = False
                 case Command(cmd_type=CommandType.TOGGLE):
                     self.switch = operator.not_(self.switch) 
-                case Command(cmd_type=CommandType.POLL):
-                    if hasattr(self, current_cmd.data): 
-                        poll_data = getattr(self, current_cmd.data)
-                    else:
-                        poll_data = f"Invalid sensor on {self.display_name}"
+                case Command(cmd_type=CommandType.POLL) if hasattr(self, current_cmd.data): 
+                    poll_data = getattr(self, current_cmd.data)
+                case Command(cmd_type=CommandType.POLL): 
+                    poll_data = f"Invalid sensor on {self.name}"
                 case Command(cmd_type=CommandType.ADJUST):
                     self.dial += int(current_cmd.data)
                 case Command(cmd_type=CommandType.SET):
                     self.dial = int(current_cmd.data)
-
-
-            if hasattr(self, 'name'):
-                self.display_name = self.name
                 
             msg_extra = f' with data: {current_cmd.data}' if current_cmd.data else ''
-            print(f"{self.display_name} running command {current_cmd.cmd_type.name}{msg_extra}")
+            print(f"{self.name} running command {current_cmd.cmd_type.name}{msg_extra}")
         else:
-            print(f"Command: {current_cmd.cmd_type.name} not allowed on {self.display_name}")
-        if poll_data: print(f"Device response: {poll_data}")
+            print(f"Command: {current_cmd.cmd_type.name} not allowed on {self.name}")
+        if poll_data: print(f"{self.name} response: {poll_data}")
         pass
     
     @abstractmethod
-    def status_update(self) -> None:
-        if hasattr(self, 'name'):
-            self.display_name = self.name     
-        print(f"{self.display_name} polling.....Status: Active")
+    def status_update(self) -> None: 
+        print(f"{self.name} polling.....Status: Active")
         pass
     
