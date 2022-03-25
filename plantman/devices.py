@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     AllowedCommands = list[Command]
     
 from plantman.device import Device
-from plantman.command import Command, SENSOR_CMDS
+from plantman.command import Command, SENSOR_CMDS, SWITCH_CMDS, DIAL_CMDS
 from plantman.deviceprofiles import DeviceProfile, SampleValve, SampleThermometer, SampleThermostat
 
 
@@ -15,15 +15,15 @@ class Valve(Device):
     allowedCommands: AllowedCommands = []
     profile: DeviceProfile
 
-    def __init__(self, allowedCommands: AllowedCommands, name: str = "Water Flow Controller", profile: DeviceProfile = SampleValve()) -> None:
+    def __init__(self, allowedCommands: AllowedCommands = SWITCH_CMDS, name: str = "Water Flow Controller", profile: DeviceProfile = SampleValve()) -> None:
         self.name = name
         self.allowedCommands: AllowedCommands = allowedCommands
         self.profile = profile
 
-    def connect(self) -> None:
+    def connect(self) -> bool:
         return super().connect()
 
-    def disconnect(self) -> None:
+    def disconnect(self) -> bool:
         return super().disconnect()
 
     def run_command(self, command: Command) -> None:
@@ -64,10 +64,10 @@ class Thermometer(Device):
     def temp_sensor(self, value):
         self._temp_sensor = value
 
-    def connect(self) -> None:
+    def connect(self) -> bool:
         return super().connect()
 
-    def disconnect(self) -> None:
+    def disconnect(self) -> bool:
         return super().disconnect()
 
     def run_command(self, command: Command) -> None:
@@ -83,15 +83,15 @@ class Thermostat(Device):
     allowedCommands: AllowedCommands = []
     profile: DeviceProfile
 
-    def __init__(self, allowedCommands: AllowedCommands, name: str = "Thermostat", dial: int = 60, profile: DeviceProfile = SampleThermostat()) -> None:
+    def __init__(self, allowedCommands: AllowedCommands = DIAL_CMDS, name: str = "Thermostat", dial: int = 60, profile: DeviceProfile = SampleThermostat()) -> None:
         self.name = name
         self.allowedCommands = allowedCommands
         self.profile = profile
 
-    def connect(self) -> None:
+    def connect(self) -> bool:
         return super().connect()
 
-    def disconnect(self) -> None:
+    def disconnect(self) -> bool:
         return super().disconnect()
 
     def run_command(self, command: Command) -> None:

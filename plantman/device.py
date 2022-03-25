@@ -19,14 +19,22 @@ class Device(ABC):
     dial: int
 
     @abstractmethod
-    def connect(self) -> None:
-        print(f"{self.name} connected")
-        pass
+    def connect(self) -> bool:
+        if self.profile.connect():
+            print(f"{self.name} connected")
+            return True
+        else:
+            print(f"{self.name} failed to connect.")
+            return False
 
     @abstractmethod
-    def disconnect(self) -> None:
-        print(f"{self.name} disconnected")
-        pass
+    def disconnect(self) -> bool:
+        if self.profile.disconnect():
+            print(f"{self.name} disconnected")
+            return True
+        else:
+            print(f"{self.name} failed to disconnect.")
+            return False
 
     @abstractmethod
     def run_command(self, current_cmd: Command) -> None:

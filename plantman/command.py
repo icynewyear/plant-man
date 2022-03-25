@@ -19,5 +19,6 @@ SENSOR_CMDS = [CommandType.POLL]
 
 @dataclass
 class Command:
+    uid: str
     cmd_type: CommandType
     data: str = ""

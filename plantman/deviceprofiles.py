@@ -3,6 +3,13 @@ from abc import ABC, abstractmethod
 
 
 class DeviceProfile(ABC):
+    @abstractmethod
+    def connect(self) -> bool:
+        pass
+
+    @abstractmethod
+    def disconnect(self) -> bool:
+        pass
 
     @abstractmethod
     def open(self) -> bool:
@@ -30,6 +37,14 @@ class DeviceProfile(ABC):
 
 
 class SampleValve(DeviceProfile):
+    def connect(self) -> bool:
+        logging.info("Valve connected")
+        return True
+
+    def disconnect(self) -> bool:
+        logging.info("Valve disconnected")
+        return True
+
     def open(self):
         logging.info("Valve Open")
         return True
@@ -56,6 +71,14 @@ class SampleValve(DeviceProfile):
 
 
 class SampleThermostat(DeviceProfile):
+    def connect(self) -> bool:
+        logging.info("Thermostat connected")
+        return True
+
+    def disconnect(self) -> bool:
+        logging.info("Thermostat disconnected")
+        return True
+
     def open(self):
         logging.warning("Unimplimented device behaviour")
         return False
@@ -79,7 +102,17 @@ class SampleThermostat(DeviceProfile):
     def set(self):
         logging.info("Thermostat set")
         return True
+
+
 class SampleThermometer(DeviceProfile):
+    def connect(self) -> bool:
+        logging.info("Thermometer connected")
+        return True
+
+    def disconnect(self) -> bool:
+        logging.info("Thermometer disconnected")
+        return True
+
     def open(self):
         logging.warning("Unimplimented device behaviour")
         return False
