@@ -10,13 +10,13 @@ from plantman.deviceprofiles import DeviceProfile, SampleValve, SampleThermomete
 
 
 class Valve(Device):
-    name: str
-    switch: bool = False
-    allowedCommands: AllowedCommands = []
-    profile: DeviceProfile
+    """Generic Valve Device:
+        has a switch and SWITCH_CMDS by default
+    """
 
     def __init__(self, allowedCommands: AllowedCommands = SWITCH_CMDS, name: str = "Valves", profile: DeviceProfile = SampleValve()) -> None:
         self.name = name
+        self.switch = True  # TODO: poll device for starting state
         self.allowedCommands: AllowedCommands = allowedCommands
         self.profile = profile
 
@@ -37,18 +37,13 @@ class Thermometer(Device):
     """Generic Thermometer Device:
         has a temp_sensor and SENSOR_CMDS by default
         Celsius readings by default
-
     """
-    name: str
-    allowedCommands: AllowedCommands = []
-    fahrenheit: bool
-    profile: DeviceProfile
 
     def __init__(self, allowedCommands: AllowedCommands = SENSOR_CMDS, name: str = "Thermometer", temp: int = 15, fahrenheit: bool = False, profile: DeviceProfile = SampleThermometer()) -> None:
         self.name = name
-        self.allowedCommands = allowedCommands
-        self.temp_sensor = temp
+        self.temp_sensor = temp  # TODO: poll device for starting state
         self.fahrenheit = fahrenheit
+        self.allowedCommands = allowedCommands
         self.profile = profile
 
     def to_fahrenheit(self):
@@ -78,13 +73,13 @@ class Thermometer(Device):
 
 
 class Thermostat(Device):
-    name: str
-    dial: int = 60
-    allowedCommands: AllowedCommands = []
-    profile: DeviceProfile
+    """Generic Thermostat Device:
+        has a dial and DIAL_CMDS by default
+    """
 
     def __init__(self, allowedCommands: AllowedCommands = DIAL_CMDS, name: str = "Thermostat", dial: int = 60, profile: DeviceProfile = SampleThermostat()) -> None:
         self.name = name
+        self.dial = dial  # TODO: poll device for starting state
         self.allowedCommands = allowedCommands
         self.profile = profile
 
