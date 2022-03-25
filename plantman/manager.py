@@ -4,24 +4,27 @@ import string
 from plantman.device import Device
 
 
-def generate_uid(len: int = 12):
-    # TODO make unique
+def generate_uid(len: int = 12) -> str:
     return "".join(random.choices(string.ascii_uppercase, k=len))
 
 
 class DeviceManager:
+    """class to handle loading, unloading, and running commands on devices"""
+
     def __init__(self):
         self.devices: dict[str, Device] = {}
 
     def register_device(self, device: Device) -> str:
         """takes in a device, runs device connect, and assigns a uid
+
         Returns:
             str: uid for device
         """
         if device.connect():
-            new_uid = generate_uid()
-            while new_uid in self.devices.keys():
+            while True:
                 new_uid = generate_uid()
+                if new_uid not in self.devices.keys():
+                    break
             self.devices[new_uid] = device
             return new_uid
         else:

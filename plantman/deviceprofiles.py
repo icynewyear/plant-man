@@ -1,8 +1,14 @@
 import logging
 from abc import ABC, abstractmethod
 
+##TODO Add custom exception
 
 class DeviceProfile(ABC):
+    """Abstract class for DeviceProfiles
+        Subclasses should define device specific functionality for each potential function
+        all functions should return True on success and False on failure
+        Functions unaval to this device should raise Exception
+    """
     @abstractmethod
     def connect(self) -> bool:
         pass
@@ -37,6 +43,7 @@ class DeviceProfile(ABC):
 
 
 class SampleValve(DeviceProfile):
+    """A basic dummy valve profile implementation"""
     def connect(self) -> bool:
         logging.info("Valve connected")
         return True
@@ -71,6 +78,7 @@ class SampleValve(DeviceProfile):
 
 
 class SampleThermostat(DeviceProfile):
+    """A basic dummy thermostat profile implementation"""
     def connect(self) -> bool:
         logging.info("Thermostat connected")
         return True
@@ -105,6 +113,7 @@ class SampleThermostat(DeviceProfile):
 
 
 class SampleThermometer(DeviceProfile):
+    """A basic dummy thermometer profile implementation"""
     def connect(self) -> bool:
         logging.info("Thermometer connected")
         return True

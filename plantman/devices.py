@@ -3,7 +3,7 @@ import profile
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     AllowedCommands = list[Command]
-    
+
 from plantman.device import Device
 from plantman.command import Command, SENSOR_CMDS, SWITCH_CMDS, DIAL_CMDS
 from plantman.deviceprofiles import DeviceProfile, SampleValve, SampleThermometer, SampleThermostat
@@ -15,7 +15,7 @@ class Valve(Device):
     allowedCommands: AllowedCommands = []
     profile: DeviceProfile
 
-    def __init__(self, allowedCommands: AllowedCommands = SWITCH_CMDS, name: str = "Water Flow Controller", profile: DeviceProfile = SampleValve()) -> None:
+    def __init__(self, allowedCommands: AllowedCommands = SWITCH_CMDS, name: str = "Valves", profile: DeviceProfile = SampleValve()) -> None:
         self.name = name
         self.allowedCommands: AllowedCommands = allowedCommands
         self.profile = profile
