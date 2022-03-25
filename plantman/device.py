@@ -18,10 +18,6 @@ class Device(ABC):
     """Abstract class for generic device function
         provides basic command handling and hooks for DeviceProfile command handling 
     """
-    name = "Device"
-    allowedCommands: AllowedCommands
-    profile: DeviceProfile
-
     @abstractmethod
     def connect(self) -> bool:
         if self.profile.connect():
