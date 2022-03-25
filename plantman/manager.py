@@ -2,6 +2,8 @@ import random
 import string
 
 from plantman.device import Device
+from plantman.error import DeviceConnectFailedError, DeviceDisconnectFailedError
+
 
 
 def generate_uid(len: int = 12) -> str:
@@ -28,7 +30,7 @@ class DeviceManager:
             self.devices[new_uid] = device
             return new_uid
         else:
-            # TODO Connection failure exception
+            raise DeviceConnectFailedError(device.name)
             return "CONNECT FAILURE"
 
     def unregister_device(self, uid: str) -> bool:
@@ -45,7 +47,7 @@ class DeviceManager:
             del self.devices[uid]
             return True
         else:
-            # TODO diconnection failure exception
+            raise DeviceDisconnectFailedError(uid)
             return False
 
     def get_device(self, uid: str) -> Device:

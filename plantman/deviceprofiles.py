@@ -1,7 +1,6 @@
 import logging
 from abc import ABC, abstractmethod
 
-##TODO Add custom exception
 
 class DeviceProfile(ABC):
     """Abstract class for DeviceProfiles
