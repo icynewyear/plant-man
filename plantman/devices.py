@@ -26,7 +26,7 @@ class Valve(Device):
     def disconnect(self) -> bool:
         return super().disconnect()
 
-    def run_command(self, command: Command) -> None:
+    def run_command(self, command: Command) -> bool:
         return super().run_command(command)
 
     def status_update(self) -> None:
@@ -65,7 +65,7 @@ class Thermometer(Device):
     def disconnect(self) -> bool:
         return super().disconnect()
 
-    def run_command(self, command: Command) -> None:
+    def run_command(self, command: Command) -> bool:
         return super().run_command(command)
 
     def status_update(self) -> None:
@@ -89,7 +89,7 @@ class Thermostat(Device):
     def disconnect(self) -> bool:
         return super().disconnect()
 
-    def run_command(self, command: Command) -> None:
+    def run_command(self, command: Command) -> bool:
         return super().run_command(command)
 
     def status_update(self) -> None:
