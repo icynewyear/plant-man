@@ -1,9 +1,14 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .command import Command
+    Program = list[Command]
+
 import random
 import string
 
-from plantman.device import Device
-from plantman.error import DeviceConnectFailedError, DeviceDisconnectFailedError
-
+from .device import Device
+from .error import DeviceConnectFailedError, DeviceDisconnectFailedError
 
 
 def generate_uid(len: int = 12) -> str:
@@ -61,7 +66,12 @@ class DeviceManager:
         """
         return self.devices[uid]
 
-    def run_commands(self, program) -> None:
+    def run_commands(self, program: Program) -> None:
+        """runs commands in a program
+
+        Args:
+            program (_type_): _description_
+        """
         for command in program:
             self.devices[command.uid].run_command(command)
         pass

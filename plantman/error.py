@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from plantman.command import Command
+    from .command import Command
 
 
 class DeviceError(Exception):
@@ -40,3 +40,12 @@ class DeviceCommandFailedError(DeviceError):
 
     def __str__(self) -> str:
         return f"{self.cmd.uid} failed to perform {self.cmd.cmd_type.name}"
+class DeviceOperationNotAllowedError(DeviceError):
+    """Raised when a device does not suport an operation
+    """
+
+    def __init__(self, cmd: Command) -> None:
+        self.cmd = cmd
+
+    def __str__(self) -> str:
+        return f"{self.cmd.uid} cannot perform {self.cmd.cmd_type.name}"

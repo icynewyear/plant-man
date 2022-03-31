@@ -4,9 +4,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     AllowedCommands = list[Command]
 
-from plantman.device import Device
-from plantman.command import Command, SENSOR_CMDS, SWITCH_CMDS, DIAL_CMDS
-from plantman.deviceprofiles import DeviceProfile, SampleValve, SampleThermometer, SampleThermostat
+from .device import Device
+from .command import Command, SENSOR_CMDS, SWITCH_CMDS, DIAL_CMDS
+from .deviceprofiles import DeviceProfile, SampleValve, SampleThermometer, SampleThermostat
 
 
 class Valve(Device):

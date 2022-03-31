@@ -1,12 +1,14 @@
 import logging
 from abc import ABC, abstractmethod
 
+from .error import DeviceOperationNotAllowedError
+
 
 class DeviceProfile(ABC):
     """Abstract class for DeviceProfiles
         Subclasses should define device specific functionality for each potential function
         all functions should return True on success and False on failure
-        Functions unaval to this device should raise Exception
+        Functions unaval to this device should raise DeviceOperationNotAllowedError
     """
     @abstractmethod
     def connect(self) -> bool:
@@ -43,6 +45,8 @@ class DeviceProfile(ABC):
 
 class SampleValve(DeviceProfile):
     """A basic dummy valve profile implementation"""
+    name: str = "Sample Water Valve"
+    
     def connect(self) -> bool:
         logging.info("Valve connected")
         return True
@@ -68,16 +72,18 @@ class SampleValve(DeviceProfile):
         return True
 
     def adjust(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def set(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
 
 
 class SampleThermostat(DeviceProfile):
     """A basic dummy thermostat profile implementation"""
+    name: str = "Sample Thermostat"
+    
     def connect(self) -> bool:
         logging.info("Thermostat connected")
         return True
@@ -87,15 +93,15 @@ class SampleThermostat(DeviceProfile):
         return True
 
     def open(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def close(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def toggle(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def poll(self):
@@ -111,8 +117,10 @@ class SampleThermostat(DeviceProfile):
         return True
 
 
-class SampleThermometer(DeviceProfile):
+class SampleThermometer(DeviceProfile):  
     """A basic dummy thermometer profile implementation"""
+    name: str = "Sample Thermometer"
+    
     def connect(self) -> bool:
         logging.info("Thermometer connected")
         return True
@@ -122,15 +130,15 @@ class SampleThermometer(DeviceProfile):
         return True
 
     def open(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def close(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def toggle(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def poll(self):
@@ -138,9 +146,9 @@ class SampleThermometer(DeviceProfile):
         return True
 
     def adjust(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def set(self):
-        logging.warning("Unimplimented device behaviour")
+        raise DeviceOperationNotAllowedError(self.name)
         return False
