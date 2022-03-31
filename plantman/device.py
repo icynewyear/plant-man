@@ -2,13 +2,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     AllowedCommands = list[Command]
-    from plantman.deviceprofiles import DeviceProfile
+    from .deviceprofiles import DeviceProfile
 
 import operator
 from abc import ABC, abstractmethod
 
-from plantman.error import DeviceCommandFailedError
-from plantman.command import Command, CommandType
+from .error import DeviceCommandFailedError
+from .command import Command, CommandType
 
 
 class Device(ABC):
@@ -53,7 +53,6 @@ class Device(ABC):
                     self.switch = False
                 else:
                     raise DeviceCommandFailedError(current_cmd)
-
             case Command(cmd_type=CommandType.TOGGLE):
                 if self.profile.toggle():
                     self.switch = operator.not_(self.switch)
