@@ -72,10 +72,12 @@ class SampleValve(DeviceProfile):
         return True
 
     def adjust(self):
+        logging.warning("Adjust invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def set(self):
+        logging.warning("Set invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False
 
@@ -93,14 +95,17 @@ class SampleThermostat(DeviceProfile):
         return True
 
     def open(self):
+        logging.warning("Open invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def close(self):
+        logging.warning("Close invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def toggle(self):
+        logging.warning("Toggle invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False
 
@@ -130,14 +135,17 @@ class SampleThermometer(DeviceProfile):
         return True
 
     def open(self):
+        logging.warning("Open invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def close(self):
+        logging.warning("Close invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def toggle(self):
+        logging.warning("Toggle invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False
 
@@ -146,9 +154,11 @@ class SampleThermometer(DeviceProfile):
         return True
 
     def adjust(self):
+        logging.warning("Adjust invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False
 
     def set(self):
+        logging.warning("Set invalid operation.")
         raise DeviceOperationNotAllowedError(self.name)
         return False

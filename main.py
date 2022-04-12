@@ -1,9 +1,16 @@
+import logging
+
 from plantman.devices import Thermostat, Valve, Thermometer
 from plantman.command import Command, CommandType, SWITCH_CMDS
 from plantman.manager import DeviceManager
 
 
 def main():
+    
+    logging.basicConfig(filename='plantman.log', format='%(levelname)s:%(message)s - %(asctime)s', level=logging.DEBUG)
+    
+    logging.info('Started')
+
 
     cmds = [CommandType.OPEN, CommandType.CLOSE, CommandType.POLL, ]
     therm_cmds = [CommandType.POLL, CommandType.ADJUST, CommandType.SET, ]
@@ -38,7 +45,8 @@ def main():
     dman.unregister_device(valve_id)
     dman.unregister_device(thermo_id)
     dman.unregister_device(therm_id)
-
+    
+    logging.info('Finished')
 
 if __name__ == "__main__":
     main()

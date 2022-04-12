@@ -4,16 +4,9 @@ if TYPE_CHECKING:
     from .command import Command
     Program = list[Command]
 
-import random
-import string
-
 from .device import Device
 from .error import DeviceConnectFailedError, DeviceDisconnectFailedError
-
-
-def generate_uid(len: int = 12) -> str:
-    return "".join(random.choices(string.ascii_uppercase, k=len))
-
+from .utils import generate_uid
 
 class DeviceManager:
     """class to handle loading, unloading, and running commands on devices"""
@@ -74,4 +67,3 @@ class DeviceManager:
         """
         for command in program:
             self.devices[command.uid].run_command(command)
-        pass
