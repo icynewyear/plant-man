@@ -4,6 +4,7 @@ if TYPE_CHECKING:
     AllowedCommands = list[Command]
     from .deviceprofiles import DeviceProfile
 
+import logging
 import operator
 from abc import ABC, abstractmethod
 
@@ -18,19 +19,19 @@ class Device(ABC):
     @abstractmethod
     def connect(self) -> bool:
         if self.profile.connect():
-            print(f"{self.name} connected")
+            logging.info(f"{self.name} connected")
             return True
         else:
-            print(f"{self.name} failed to connect.")
+            logging.warning(f"{self.name} failed to connect.")
             return False
 
     @abstractmethod
     def disconnect(self) -> bool:
         if self.profile.disconnect():
-            print(f"{self.name} disconnected")
+            logging.info(f"{self.name} disconnected")
             return True
         else:
-            print(f"{self.name} failed to disconnect.")
+            logging.warning(f"{self.name} failed to disconnect.")
             return False
 
     @abstractmethod
@@ -38,7 +39,7 @@ class Device(ABC):
         poll_data = ""
         result = False
         if current_cmd.cmd_type not in self.allowedCommands:
-            print(
+            logging.warning(
                 f"Command: {current_cmd.cmd_type.name} not allowed on {self.name}")
             return False
         match current_cmd:
@@ -79,15 +80,15 @@ class Device(ABC):
                 poll_data = f"Invalid sensor on {self.name}"
 
         msg_extra = f' with data: {current_cmd.data}' if current_cmd.data else ''
-        print(
+        logging.info(
             f"{self.name} running command {current_cmd.cmd_type.name}{msg_extra}")
         if poll_data:
-            print(f"{self.name} response: {poll_data}")
+            logging.info(f"{self.name} response: {poll_data}")
         return result
 
     @abstractmethod
     def status_update(self) -> None:
-        print(f"{self.name} polling.....Status: Active")
+        logging.info(f"{self.name} polling.....Status: Active")
         pass
 
     # @abstractmethod
